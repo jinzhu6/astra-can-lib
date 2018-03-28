@@ -10,7 +10,7 @@ AstraCAN ms(CAN_GPIO_PB8_PB9, MS, SECONDARY);
 CanMsg *inMsg;
 
 void setup(){
-ls.start();	
+ls.begin();	
 }
 
 void loop(){

@@ -3,16 +3,22 @@
 checkLsTriggers(){
 	int id = inMsg->ID;
 	// разбор сообщений в зависимости от ID 
-	if (id==0x170){
+	if (id==0x160){
 		// buttons on key holder
 		if (inMsg->Data[0]==0x00 and inMsg->Data[1]==0x00) {
 			// some logic here 
 			ms.sendMessage(0x100,2,0x00,0x01);
 		}
 	}
-	else if (id == 0x160){
-		//something else
+	else if (id == 0x170){
+		// положение ключа зажигания
+		}
+	else if (id == 0x000){
+		// комбинация для показа чего-нибудь в окошке ошибок
 		ls.sendMessage(0x100,0);
-		ls.showEcn(123456);
+		showEcn(123456);
 	}
+	else if (id == 0x000){
+		// две бобышки вверх
+	doThansk();
 }
