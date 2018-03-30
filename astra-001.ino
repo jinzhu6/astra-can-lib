@@ -2,6 +2,7 @@
 // this file contains patterns of LS messages that must be processed
 checkLsTriggers(){
 	int id = inMsg->ID;
+	int[8] b = inMsg->Data; //надеюсь, сработает, для упрощения кода
 	// разбор сообщений в зависимости от ID 
 	if (id==0x160){
 		// buttons on key holder
@@ -30,5 +31,22 @@ checkLsTriggers(){
 				) {
 					doThansk();
 				}
-	
+	}
+	else if (id == 0x305){
+		//кнопки управления фарами
+		
+		if (/*фары не включены совсем*/
+					b[2]==0x00) {
+						flagLightsOff=1;
+					}else{
+						flagLightsOff=0;
+					}
+		}
+}
+
+
+checkFlags(){
+	if (flagLightsOff and flagMove){
+		beep();
+	}
 }
