@@ -16,9 +16,19 @@ checkLsTriggers(){
 	else if (id == 0x000){
 		// комбинация для показа чего-нибудь в окошке ошибок
 		ls.sendMessage(0x100,0);
-		showEcn(123456);
+		showEcn({0x12,0x34,0x56});
 	}
-	else if (id == 0x000){
-		// две бобышки вверх
-	doThansk();
+	else if (id == 0x175){
+		// рулевая колонка
+		
+		if (/*две бобышки вверх*/
+					(inMsg->Data[5] == 0x11) // на самом деле надо побитовое И !!
+					and
+					(inMsg->Data[6]==0x1f)
+					and
+					(inMsg->Data[7]==0x01)
+				) {
+					doThansk();
+				}
+	
 }
