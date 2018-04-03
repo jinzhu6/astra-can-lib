@@ -1,8 +1,8 @@
 // I hope that Arduino IDE compiler will unite this with main file  
 // this file contains patterns of LS messages that must be processed
-checkLsTriggers(){
+void checkLsTriggers(){
 	int id = inMsg->ID;
-	int[8] b = inMsg->Data; //надеюсь, сработает, для упрощения кода
+	uint8 b[8] = inMsg->Data; //надеюсь, сработает, для упрощения кода
 	// разбор сообщений в зависимости от ID 
 	if (id==0x160){
 		// buttons on key holder
