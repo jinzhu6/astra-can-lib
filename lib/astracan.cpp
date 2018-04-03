@@ -4,7 +4,7 @@
 
 #include "wirish.h"
 #include "utility/can.h"
-#include "AstraCAN.h"
+#include "astracan.h"
 
 /**
  * @brief Initialize a CAN peripheral
@@ -147,3 +147,9 @@ AstraCAN::AstraCAN(CAN_Port* CANx)
 	Port = CANx;
 }
 
+AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role){
+	Port = CAN1_BASE;
+	this.bus = bus;
+	this.role = role;	
+	this.map(Port, remap);
+}

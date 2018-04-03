@@ -24,17 +24,18 @@ class AstraCAN
 private:
 public:
 	CAN_Port* Port;
+	ASTRA_CAN_BUS bus;
+	ROLE role;
 	/**
-	* порт = пины
-	* шина = ls / ms / hs
+	* remap = пины (b8b9 или a11a12)
+	* шина = LS / MS / HS
 	* роль = основной / вторичный 
 	*/
-    AstraCAN(CAN_Port *CANx_BASE, ASTRA_CAN_BUS bus, ROLE role);
-    
+	AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role);  
     /** 
      * сразу установить до 14 фильтров
      */
-    AstraCAN(CAN_Port *CANx_BASE, ASTRA_CAN_BUS bus, ROLE role, uint16[] filters);
+    AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role, uint32 filters[]);
     
     CAN_STATUS begin(void);
     CAN_STATUS begin(CAN_SPEED speed, uint32 mode);
@@ -73,6 +74,6 @@ public:
 	uint8 fifo_ready(CAN_FIFO fifo);
 	CanMsg* read(CAN_FIFO fifo, CanMsg* msg);
 	void release(CAN_FIFO fifo);
-};
+}
 
 #endif
