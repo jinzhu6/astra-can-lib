@@ -1,12 +1,11 @@
-// I hope that Arduino IDE compiler will unite this with main file  
-// this file contains patterns of LS messages that must be processed
+// I hope that Arduino IDE ? LS messages that must be processed
 void checkLsTriggers(){
 	int id = inMsg->ID;
 	uint8 b[8] = inMsg->Data; //надеюсь, сработает, для упрощения кода
 	// разбор сообщений в зависимости от ID 
 	if (id==0x160){
 		// buttons on key holder
-		if (inMsg->Data[0]==0x00 and inMsg->Data[1]==0x00) {
+		if (b[0]==0x00 and b[1]==0x00) {
 			// some logic here 
 			ms.sendMessage(0x100,2,0x00,0x01);
 		}
@@ -23,13 +22,13 @@ void checkLsTriggers(){
 		// рулевая колонка
 		
 		if (/*две бобышки вверх*/
-					(inMsg->Data[5] == 0x11) // на самом деле надо побитовое И !!
+					(b[5] == 0x11) // на самом деле надо побитовое И !!
 					and
-					(inMsg->Data[6]==0x1f)
+					(b[6]==0x1f)
 					and
-					(inMsg->Data[7]==0x01)
+					(b[7]==0x01)
 				) {
-					doThansk();
+					doThanks();
 				}
 	}
 	else if (id == 0x305){

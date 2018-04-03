@@ -4,7 +4,7 @@
  * шлет цифры на дисплей ошибок
  * три двухзначных числа
  */
-void showEcn(int d[3]){	ls.SendCANmessage(0x5e8,4,0x81,d[0], d[1], d[2]); 
+void showEcn(uint8 d[3]){	ls.SendCANmessage(0x5e8,4,0x81,d[0], d[1], d[2]); 
 }
 //===========//
 /**
@@ -22,7 +22,7 @@ void doThanks(){
 /**
  * издать звуковой сигнал 
  */
-void beep(int wait=0x1e, int count=0x03, int length=0x33){
+void beep(uint8 wait=0x1e, uint8 count=0x03, uint8 length=0x33){
 //пример сообщения ls.SendCANmessage(0x280,5,0x70,0x05,0x1e,0x03,0x33);
 ls.SendCANmessage(0x280, 5, 0x70, 0x05, wait, count, length);
 	
