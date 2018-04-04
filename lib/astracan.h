@@ -19,6 +19,11 @@ typedef enum ROLE {
 	SECONDARY
 }
 
+// flags //
+bool flagLightsOff;
+bool flagMove;
+
+
 class AstraCAN
 {
 private:
