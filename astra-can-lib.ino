@@ -1,4 +1,4 @@
-#include "lib/astracan.h"
+#include "lib/AstraCAN.h"
 
 // use up to 14 filters if you will process only few ID's
 // uint32 lsFilters[] = {0x170, 0x160};
@@ -6,6 +6,7 @@
 // here I state that ls is the main bus to operate on
 // AstraCAN ls(CAN_GPIO_PA11_PA12, LS, PRIMARY, lsFilters);
 AstraCAN ls(CAN_GPIO_PA11_PA12, LS, PRIMARY);
+// HardwareCAN ls(CAN1_BASE);
 // ms will be secondary just to send messages occasionally
 AstraCAN ms(CAN_GPIO_PB8_PB9, MS, SECONDARY);
 // locate memory for the incoming message  
@@ -16,7 +17,7 @@ ls.begin();
 }
 
 void loop(){
-	if ((inMsg = ls.receive())!=NULL) {
+	if ((inMsg = ls.recv())!=NULL) {
 		// обработка входящего сообщения и запуск функций (переключение состояния) либо расстановка флагов?
 	checkLsTriggers();
 	checkFlags();

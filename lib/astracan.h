@@ -8,16 +8,16 @@
 #include "utility/can.h"
 #include "usb_serial.h"
 
-typedef enum ASTRA_CAN_BUS {
+enum ASTRA_CAN_BUS {
 	LS,		/* LS or SW bus */
 	MS,		
 	HS
-} ASTRA_CAN_BUS;
+};
 
 typedef enum ROLE {
 	PRIMARY,
 	SECONDARY
-}
+} ROLE;
 
 // flags //
 bool flagLightsOff;
@@ -41,6 +41,7 @@ public:
      * сразу установить до 14 фильтров
      */
     AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role, uint32 filters[]);
+    AstraCAN(void);
     
     CAN_STATUS begin(void);
     CAN_STATUS begin(CAN_SPEED speed, uint32 mode);
@@ -72,6 +73,7 @@ public:
 	uint8 available(void);
 
 	CanMsg* recv(void);
+	CanMsg* recv(uint32 id);
 
 	void free(void);
 	void clear(void);
@@ -79,6 +81,9 @@ public:
 	uint8 fifo_ready(CAN_FIFO fifo);
 	CanMsg* read(CAN_FIFO fifo, CanMsg* msg);
 	void release(CAN_FIFO fifo);
-}
+
+	// MS CAN only:
+	void volumeDown(void);
+};
 
 #endif

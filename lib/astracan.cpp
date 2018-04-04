@@ -4,7 +4,7 @@
 
 #include "wirish.h"
 #include "utility/can.h"
-#include "astracan.h"
+#include "AstraCAN.h"
 
 /**
  * @brief Initialize a CAN peripheral
@@ -91,6 +91,12 @@ CanMsg* AstraCAN::recv(void)
 	return can_rx_queue_get();
 }
 
+CanMsg* AstraCAN::recv(uint32 id)
+{
+	// todo! установить фильтр по id, получить сообщение, вернуть фильтры?
+	return can_rx_queue_get();
+}
+
 void AstraCAN::clear(void)
 {
 	can_rx_queue_clear();
@@ -142,14 +148,25 @@ uint8 AstraCAN::fifo_ready(CAN_FIFO fifo)
 	return can_fifo_ready(Port, fifo);
 }
 
+
+AstraCAN::AstraCAN()
+{
+
+}
+
 AstraCAN::AstraCAN(CAN_Port* CANx)
 {
 	Port = CANx;
 }
 
-AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role){
+AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role)
+{
 	Port = CAN1_BASE;
 	this.bus = bus;
 	this.role = role;	
 	this.map(Port, remap);
 }
+
+	// MS CAN only:
+	void AstraCAN::volumeDown(void){
+	}

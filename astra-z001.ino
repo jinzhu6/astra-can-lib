@@ -1,7 +1,7 @@
 // I hope that Arduino IDE ? LS messages that must be processed
 void checkLsTriggers(){
-	int id = inMsg->ID;
-	uint8 b[8] = inMsg->Data; //надеюсь, сработает, для упрощения кода
+	uint32 id = inMsg->ID;
+	uint8* b = inMsg->Data; //надеюсь, сработает, для упрощения кода
 	// разбор сообщений в зависимости от ID 
 	if (id==0x160){
 		// buttons on key holder
@@ -16,7 +16,7 @@ void checkLsTriggers(){
 	else if (id == 0x000){
 		// комбинация для показа чего-нибудь в окошке ошибок
 		ls.sendMessage(0x100,0);
-		showEcn({0x12,0x34,0x56});
+		showEcn(0x12,0x34,0x56);
 	}
 	else if (id == 0x175){
 		// рулевая колонка
@@ -44,7 +44,7 @@ void checkLsTriggers(){
 }
 
 
-checkFlags(){
+void checkFlags(){
 	if (flagLightsOff and flagMove){
 		beep();
 	}
