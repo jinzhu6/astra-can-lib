@@ -19,7 +19,7 @@ void loop(){
 	if ((inMsg = ls.receive())!=NULL) {
 		// обработка входящего сообщения и запуск функций (переключение состояния) либо расстановка флагов?
 	checkLsTriggers();
-	checkFlages();
+	checkFlags();
 	
 	}
 	
