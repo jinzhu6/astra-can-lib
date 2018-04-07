@@ -117,6 +117,7 @@ void AstraCAN::cancel(CAN_TX_MBX mbx)
  */
 CAN_STATUS AstraCAN::begin(void)
 {
+	// внимание!!!! это лс кан по умолчанию!
 	return begin(CAN_SPEED_33, CAN_MODE_NORMAL);
 }
 
@@ -164,7 +165,7 @@ AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role)
 	Port = CAN1_BASE;
 	this.bus = bus;
 	this.role = role;	
-	this.map(Port, remap);
+	this.map(remap);
 }
 
 	// MS CAN only:
