@@ -31,6 +31,7 @@ public:
 	CAN_Port* Port;
 	ASTRA_CAN_BUS bus;
 	ROLE role;
+	CAN_GPIO_MAP remap;
 	/**
 	* remap = пины (b8b9 или a11a12)
 	* шина = LS / MS / HS

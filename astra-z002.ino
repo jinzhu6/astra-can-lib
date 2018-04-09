@@ -5,7 +5,7 @@
  * три двухзначных числа
  */
 void showEcn(uint8 d0, uint8 d1, uint8 d2){	
-	log("==>sending message to ECN screen")
+	log("==>sending message to ECN screen");
 	ls.sendMessage(0x5e8,4,0x81,d0, d1, d2); 
 	log("==sent");
 }
@@ -16,7 +16,7 @@ void showEcn(uint8 d0, uint8 d1, uint8 d2){
 void doThanks(){
 	log("== doThanks ==");
 	//уменьшить громкость на 1 обратно!
-	log("volume down (temporary off)")
+	log("volume down (temporary off)");
 	// ms.volumeDown(); // в магнитоле нет ЛС кана, так что на модуле без лс уменьшать громкость надо вручную 
 	//код... 
 	// ls.recv(0x255); // не забыть, что нужно считать состояние всех фар!! если сообщение не сохраненно, то его получить..

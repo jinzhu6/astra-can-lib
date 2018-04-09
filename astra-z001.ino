@@ -9,7 +9,7 @@ void checkLsTriggers(){
 		// buttons on key holder
 		if (b[0]==0x00 and b[1]==0x00) {
 			// some logic here
-			log("b[0]==0x00 and b[1]==0x00") 
+			log("b[0]==0x00 and b[1]==0x00");
 			//ms.sendMessage(0x100,2,0x00,0x01); //WTF? пока без МС
 		}
 	}
@@ -18,7 +18,7 @@ void checkLsTriggers(){
 		log("Id 0x170 found - ignition lock");
 		}
 	else if (id == 0x000){
-		log("It cannot be true!")
+		log("It cannot be true!");
 		// комбинация для показа чего-нибудь в окошке ошибок
 		ls.sendMessage(0x100,0);
 		showEcn(0x12,0x34,0x56);
@@ -40,12 +40,12 @@ void checkLsTriggers(){
 	}
 	else if (id == 0x305){
 		//кнопки управления фарами
-		log("Id 0x305 detected - lights control")
+		log("Id 0x305 detected - lights control");
 		if (/*фары не включены совсем*/
 					b[2]==0x00) {
 						log("b[2]==0x00, lights are all off. Setting the flag 1");
 						flagLightsOff=1;
-					}else{
+					} else {
 						log("b[2]!=0x00, lights are NOT all off. Setting the flag 0");
 						flagLightsOff=0;
 					}
@@ -57,7 +57,7 @@ log("--- end of LS triggers check ---");
 void checkFlags(){
 log("--- Start of flags check ---");
 	if (flagLightsOff and flagMove){
-		log("flagLightsOff and flagMove detected. Should make a signal. Or simulate handbrake is on.")
+		log("flagLightsOff and flagMove detected. Should make a signal. Or simulate handbrake is on.");
 		beep();
 	}
 log("--- end of flags check ---");
