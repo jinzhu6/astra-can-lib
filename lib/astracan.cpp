@@ -29,6 +29,15 @@ CAN_STATUS AstraCAN::begin(CAN_SPEED speed, uint32 mode)
 	return can_status();
 }
 
+/**
+ * @brief Initialize a CAN peripheral
+ */
+CAN_STATUS AstraCAN::begin(void)
+{
+	// внимание!!!! это лс кан по умолчанию!
+	return begin(CAN_SPEED_33, CAN_MODE_NORMAL);
+}
+
 void AstraCAN::set_pool_mode(void)
 {
 	return can_set_pool_mode(Port);
@@ -112,15 +121,6 @@ void AstraCAN::cancel(CAN_TX_MBX mbx)
 	can_cancel(Port, mbx);
 }
 
-/**
- * @brief Initialize a CAN peripheral
- */
-CAN_STATUS AstraCAN::begin(void)
-{
-	// внимание!!!! это лс кан по умолчанию!
-	return begin(CAN_SPEED_33, CAN_MODE_NORMAL);
-}
-
 void AstraCAN::end(void)
 {
 	can_deinit(Port);
@@ -160,14 +160,13 @@ AstraCAN::AstraCAN(CAN_Port* CANx)
 	Port = CANx;
 }
 
-AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role)
-{
+AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role){
 	Port = CAN1_BASE;
 	this.bus = bus;
 	this.role = role;	
 	this.map(remap);
 }
 
-	// MS CAN only:
-	void AstraCAN::volumeDown(void){
-	}
+// MS CAN only:
+void AstraCAN::volumeDown(void){
+}
