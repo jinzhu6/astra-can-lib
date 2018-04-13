@@ -57,7 +57,8 @@
                 "path": [
                     "${workspaceFolder}",
                     "D:\\prog\\Arduino\\hardware\\Arduino_STM32\\STM32F1\\cores\\maple",
-                    "D:\\prog\\Arduino\\hardware\\Arduino_STM32\\STM32F1\\system\\libmaple\\include"
+                    "D:\\prog\\Arduino\\hardware\\Arduino_STM32\\STM32F1\\system\\libmaple\\include",
+                    "D:\\prog\\Arduino\\hardware\\Arduino_STM32\\STM32F1\\libraries"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""

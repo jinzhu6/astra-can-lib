@@ -20,7 +20,7 @@ void checkLsTriggers(){
 	else if (id == 0x000){
 		log("It cannot be true!");
 		// комбинация для показа чего-нибудь в окошке ошибок
-		ls.sendMessage(0x100,0);
+		ls.sendMessage(0x100,0,0,0,0,0,0,0,0,0);
 		showEcn(0x12,0x34,0x56);
 	}
 	else if (id == 0x175){

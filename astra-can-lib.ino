@@ -1,4 +1,6 @@
-#include "lib/astracan.h"
+#include "lib/AstraCAN.h"
+#include <HardwareCAN.h>
+
 
 #define DEBUG
 
@@ -7,9 +9,10 @@
 
 // here I state that ls is the main bus to operate on
 // AstraCAN ls(CAN_GPIO_PA11_PA12, LS, PRIMARY, lsFilters);
-AstraCAN ls(CAN_GPIO_PA11_PA12, LS, PRIMARY);
+// AstraCAN ls(CAN_GPIO_PA11_PA12, LS, PRIMARY);
+HardwareCAN ls(CAN1_BASE);
 // ms will be secondary just to send messages occasionally
-AstraCAN ms(CAN_GPIO_PB8_PB9, MS, SECONDARY);
+// AstraCAN ms(CAN_GPIO_PB8_PB9, MS, SECONDARY);
 // locate memory for the incoming message  
 CanMsg *inMsg;
 CAN_STATUS stat ;

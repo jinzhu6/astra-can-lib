@@ -89,6 +89,17 @@ void AstraCAN::sendMessage(long id=0x001, byte dlength=8, byte d0=0x00, byte d1=
   digitalWrite(PC13, HIGH);   // turn the LED off 
 }
 
+CAN_TX_MBX  AstraCAN::CANsend(CanMsg *pmsg) // Should be moved to the library?!
+{
+  CAN_TX_MBX mbx;
+  do 
+  {
+    mbx = canBus.send(pmsg) ;
+  }
+  while(mbx == CAN_TX_NO_MBX) ;       // Waiting outbound frames will eventually be sent, unless there is a CAN bus failure.
+  return mbx ;
+}
+
 
 uint8 AstraCAN::available(void)
 {
@@ -152,7 +163,10 @@ uint8 AstraCAN::fifo_ready(CAN_FIFO fifo)
 
 AstraCAN::AstraCAN()
 {
-
+	this.bus = LS;
+	this.role = PRIMARY;	
+	this.remap = CAN_GPIO_PA11_PA12;
+	this.Port = CAN1_BASE;
 }
 
 AstraCAN::AstraCAN(CAN_Port* CANx)

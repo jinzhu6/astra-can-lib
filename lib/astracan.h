@@ -67,7 +67,7 @@ public:
 	CAN_STATUS status(void);
 
 	CAN_TX_MBX send(CanMsg* message);
-	CAN_TX_MBX sendMessage(long id=0x001, byte dlength=8, byte d0=0x00, byte d1=0x00, byte d2=0x00, byte d3=0x00, byte d4=0x00, byte d5=0x00, byte d6=0x00, byte d7=0x00);
+	void sendMessage(long id, byte dlength, byte d0, byte d1, byte d2, byte d3, byte d4, byte d5, byte d6, byte d7);
 	
 	void cancel(CAN_TX_MBX mbx);
 

@@ -6,7 +6,7 @@
  */
 void showEcn(uint8 d0, uint8 d1, uint8 d2){	
 	log("==>sending message to ECN screen");
-	ls.sendMessage(0x5e8,4,0x81,d0, d1, d2); 
+	ls.sendMessage(0x5e8,4,0x81,d0, d1, d2,0,0,0,0); 
 	log("==sent");
 }
 //===========//
@@ -34,7 +34,7 @@ void doThanks(){
 void beep(uint8 wait=0x1e, uint8 count=0x03, uint8 length=0x33){
 	log("==>making beep!");
 //пример сообщения ls.sendMessage(0x280,5,0x70,0x05,0x1e,0x03,0x33);
-ls.sendMessage(0x280, 5, 0x70, 0x05, wait, count, length);
+ls.sendMessage(0x280, 5, 0x70, 0x05, wait, count, length,0,0,0);
 	log("== end making beep!");
 	
 }
