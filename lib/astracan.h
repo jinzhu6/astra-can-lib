@@ -29,23 +29,33 @@ class AstraCAN
 private:
 public:
 	CAN_Port* Port;
+	CAN_GPIO_MAP remap;
+	CAN_SPEED speed;
 	ASTRA_CAN_BUS bus;
 	ROLE role;
-	CAN_GPIO_MAP remap;
-	/**
-	* remap = пины (b8b9 или a11a12)
-	* шина = LS / MS / HS
-	* роль = основной / вторичный 
-	*/
-	AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role);  
-    /** 
-     * сразу установить до 14 фильтров
-     */
-    AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role, uint32 filters[]);
-    AstraCAN(void);
+
+	// конструктор 1
+	AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus);
+
+	// /**
+	// * remap = пины (b8b9 или a11a12)
+	// * шина = LS / MS / HS
+	// * роль = основной / вторичный 
+	// */
+	// AstraCAN(CAN_Port* CANx, CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role);  
+    // /** 
+    //  * сразу установить до 14 фильтров
+    //  */
+    // AstraCAN(CAN_Port* CANx, CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role, uint32 filters[]);
+    // AstraCAN(void);
     
-    CAN_STATUS begin(void);
+    /**
+ 	* Активация, в том числе переключение настройки
+ 	*/
+	CAN_STATUS activate(void);
+
     CAN_STATUS begin(CAN_SPEED speed, uint32 mode);
+    CAN_STATUS begin(void);
 
 	uint32 MSR(void)
 	{
@@ -68,6 +78,7 @@ public:
 
 	CAN_TX_MBX send(CanMsg* message);
 	void sendMessage(long id, byte dlength, byte d0, byte d1, byte d2, byte d3, byte d4, byte d5, byte d6, byte d7);
+	
 	
 	void cancel(CAN_TX_MBX mbx);
 
