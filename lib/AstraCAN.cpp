@@ -6,6 +6,43 @@
 #include "utility/can.h"
 #include "AstraCAN.h"
 
+
+// Сначала конструкторы
+AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus){
+	this.remap = remap;
+	this.bus =	bus;
+	Port = CAN1_BASE;
+	this.mode = CAN_MODE_NORMAL;
+	if (this.bus == LS) {
+		this.speed = CAN_SPEED_33;
+	} esleif (this.bus == MS){
+		this.speed = CAN_SPEED_95;
+	} esleif (this.bus == HS){
+		this.speed = CAN_SPEED_500;
+	} else {
+		// bad
+	}
+	
+}
+
+/**
+ * Активация, в том числе переключение настройки
+ */
+AstraCAN::activate(void){
+	Serial.end();
+	if (this.remap == CAN_GPIO_PA11_PA12) {
+		afio_init(); // this will restart subsystem and make it work!		
+	}
+	Stat = can_gpio_map(Port, this.remap);
+	Stat = can_set_irq_mode(Port);
+	if (can_init(Port, 0, speed) == CAN_OK)
+		Stat = can_set_mode(Port, this.mode);
+	Stat = can_status();
+	return Stat;
+}
+
+ 
+
 /**
  * @brief Initialize a CAN peripheral
  * @param freq frequency to run at, must one of the following values:
@@ -35,6 +72,7 @@ CAN_STATUS AstraCAN::begin(CAN_SPEED speed, uint32 mode)
 CAN_STATUS AstraCAN::begin(void)
 {
 	// внимание!!!! это лс кан по умолчанию!
+	canBus.map(CAN_GPIO_PA11_PA12);
 	return begin(CAN_SPEED_33, CAN_MODE_NORMAL);
 }
 
@@ -65,7 +103,7 @@ CAN_TX_MBX AstraCAN::send(CanMsg* message)
 /**
  * формирование произвольного сообщения и отправка
  */
-void AstraCAN::sendMessage(long id=0x001, byte dlength=8, byte d0=0x00, byte d1=0x00, byte d2=0x00, byte d3=0x00, byte d4=0x00, byte d5=0x00, byte d6=0x00, byte d7=0x00)
+void AstraCAN::sendMessage(long id, byte dlength, byte d0, byte d1, byte d2, byte d3, byte d4, byte d5, byte d6, byte d7)
 {
   // Initialize the message structure
   // A CAN structure includes the following fields:
@@ -161,25 +199,39 @@ uint8 AstraCAN::fifo_ready(CAN_FIFO fifo)
 }
 
 
-AstraCAN::AstraCAN()
-{
-	this.bus = LS;
-	this.role = PRIMARY;	
-	this.remap = CAN_GPIO_PA11_PA12;
-	this.Port = CAN1_BASE;
-}
+// AstraCAN::AstraCAN()
+// {
+// 	this.bus = LS;
+// 	this.role = PRIMARY;	
+// 	this.remap = CAN_GPIO_PA11_PA12;
+// 	this.Port = CAN1_BASE;
+// }
 
-AstraCAN::AstraCAN(CAN_Port* CANx)
-{
-	Port = CANx;
-}
+// AstraCAN::AstraCAN(CAN_Port* CANx)
+// {
+// 	Port = CANx;
+// }
 
-AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role){
-	Port = CAN1_BASE;
-	this.bus = bus;
-	this.role = role;	
-	this.remap = remap;
-}
+// AstraCAN::AstraCAN(CAN_Port* CANx, CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role){
+// 	Port = CANx;
+// 	this.bus = bus;
+// 	this.role = role;	
+// 	this.remap = remap;
+// 	this.filter(0,0,0);
+//     this.set_irq_mode();
+// }
+
+// AstraCAN::    AstraCAN(CAN_Port* CANx, CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus, ROLE role, uint32 filters[])
+// {
+// 	Port = CANx;
+// 	this.bus = bus;
+// 	this.role = role;	
+// 	this.remap = remap;
+// 	for (int i = 0; i < filters.length, i++){
+
+// 	}
+// }
+
 
 // MS CAN only:
 void AstraCAN::volumeDown(void){

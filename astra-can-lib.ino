@@ -1,5 +1,5 @@
 #include "lib/AstraCAN.h"
-#include <HardwareCAN.h>
+//#include <HardwareCAN.h>
 
 
 #define DEBUG
@@ -9,8 +9,8 @@
 
 // here I state that ls is the main bus to operate on
 // AstraCAN ls(CAN_GPIO_PA11_PA12, LS, PRIMARY, lsFilters);
-// AstraCAN ls(CAN_GPIO_PA11_PA12, LS, PRIMARY);
-HardwareCAN ls(CAN1_BASE);
+AstraCAN ls(CAN_GPIO_PA11_PA12, LS);
+// HardwareCAN ls(CAN1_BASE);
 // ms will be secondary just to send messages occasionally
 // AstraCAN ms(CAN_GPIO_PB8_PB9, MS, SECONDARY);
 // locate memory for the incoming message  
@@ -27,16 +27,20 @@ void setup(){
 	// приравнять лог = сериал2 можно?
 	blink(3);
 	stat = ls.begin();	
-	log("LS started with status "+ stat);
+	log("LS started with status "+ String(stat));
 	showEcn(0x12,0x34,0x56);
 
 }
 
 void loop(){
 	log("=====starting loop=====");
+	#ifdef DEBUG
+	delay(300);
+	#endif
+
 	if ((inMsg = ls.recv())!=NULL) {
 		processedMessagesCount++;
-		log("LS CAN message received. Count:" +processedMessagesCount);
+		log("LS CAN message received. Count:" + String(processedMessagesCount));
 		// обработка входящего сообщения и запуск функций (переключение состояния) либо расстановка флагов?
     log("--before triggers--");
 	checkLsTriggers();
@@ -45,7 +49,7 @@ void loop(){
 	log("--after flags--");
 	} else {
 		emptyMessagesCount++;
-		log("No message in queue. Empty messages count: "+ emptyMessagesCount); // будет гадить в лог!!
+		log("No message in queue. Empty messages count: "+ String(emptyMessagesCount)); // будет гадить в лог!!
 	}
 	
 }
