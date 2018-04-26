@@ -8,7 +8,8 @@
 
 
 // Сначала конструкторы
-AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus){
+AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus) 
+{
 	this.remap = remap;
 	this.bus =	bus;
 	Port = CAN1_BASE;
@@ -22,8 +23,11 @@ AstraCAN::AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus){
 	} else {
 		// bad
 	}
-	
 }
+
+AstraCAN::AstraCAN(void){
+	
+} 
 
 /**
  * Активация, в том числе переключение настройки
@@ -41,6 +45,13 @@ AstraCAN::activate(void){
 	return Stat;
 }
 
+
+CAN_STATUS AstraCAN::begin(void)
+{
+	// внимание!!!! это лс кан по умолчанию!
+	canBus.map(CAN_GPIO_PA11_PA12);
+	return begin(CAN_SPEED_33, CAN_MODE_NORMAL);
+}
  
 
 /**
@@ -64,16 +75,6 @@ CAN_STATUS AstraCAN::begin(CAN_SPEED speed, uint32 mode)
  // End Fix JMD
 		return can_set_mode(Port, mode);
 	return can_status();
-}
-
-/**
- * @brief Initialize a CAN peripheral
- */
-CAN_STATUS AstraCAN::begin(void)
-{
-	// внимание!!!! это лс кан по умолчанию!
-	canBus.map(CAN_GPIO_PA11_PA12);
-	return begin(CAN_SPEED_33, CAN_MODE_NORMAL);
 }
 
 void AstraCAN::set_pool_mode(void)

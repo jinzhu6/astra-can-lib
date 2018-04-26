@@ -36,6 +36,7 @@ public:
 
 	// конструктор 1
 	AstraCAN(CAN_GPIO_MAP remap, ASTRA_CAN_BUS bus);
+	AstraCAN(void);
 
 	// /**
 	// * remap = пины (b8b9 или a11a12)
@@ -54,8 +55,8 @@ public:
  	*/
 	CAN_STATUS activate(void);
 
-    CAN_STATUS begin(CAN_SPEED speed, uint32 mode);
     CAN_STATUS begin(void);
+    CAN_STATUS begin(CAN_SPEED speed, uint32 mode);
 
 	uint32 MSR(void)
 	{

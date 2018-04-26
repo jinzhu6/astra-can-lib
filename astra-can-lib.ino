@@ -9,7 +9,8 @@
 
 // here I state that ls is the main bus to operate on
 // AstraCAN ls(CAN_GPIO_PA11_PA12, LS, PRIMARY, lsFilters);
-AstraCAN ls(CAN_GPIO_PA11_PA12, LS);
+//AstraCAN ls(CAN_GPIO_PA11_PA12, LS);
+AstraCAN ls();
 // HardwareCAN ls(CAN1_BASE);
 // ms will be secondary just to send messages occasionally
 // AstraCAN ms(CAN_GPIO_PB8_PB9, MS, SECONDARY);
