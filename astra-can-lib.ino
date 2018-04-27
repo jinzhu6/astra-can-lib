@@ -1,5 +1,5 @@
-#include "lib/AstraCAN.h"
-//#include <HardwareCAN.h>
+#include "lib/EmptyCan.h"
+
 
 
 #define DEBUG
@@ -10,7 +10,7 @@
 // here I state that ls is the main bus to operate on
 // AstraCAN ls(CAN_GPIO_PA11_PA12, LS, PRIMARY, lsFilters);
 //AstraCAN ls(CAN_GPIO_PA11_PA12, LS);
-AstraCAN ls();
+EmptyCan ls();
 // HardwareCAN ls(CAN1_BASE);
 // ms will be secondary just to send messages occasionally
 // AstraCAN ms(CAN_GPIO_PB8_PB9, MS, SECONDARY);
@@ -27,7 +27,7 @@ void setup(){
 	Serial2.println("Starting program. Setup.");
 	// приравнять лог = сериал2 можно?
 	blink(3);
-	stat = ls.begin();	
+	ls.begin();	
 	log("LS started with status "+ String(stat));
 	showEcn(0x12,0x34,0x56);
 
