@@ -3,12 +3,13 @@
 
 #include "utility/can.h"
 #include "usb_serial.h"
+#include <HardwareCAN.h>
 
-class EmptyCan {
+class EmptyCan:HardwareCAN {
 	private:
 	
 	public:
-	inMs
+	
 	
 	EmptyCan(void);
 	
