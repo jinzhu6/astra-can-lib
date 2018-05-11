@@ -6,7 +6,7 @@
  */
 void showEcn(uint8 d0, uint8 d1, uint8 d2){	
 	log("==>sending message to ECN screen");
-	ls.sendMessage(0x5e8,4,0x81, d0, d1, d2,0,0,0,0);
+	ls.sendMessage(0x5e8,8,0x81, d0, d1, d2,0xFF,0,0,0);
 	 
 	log("==sent");
 }
@@ -23,7 +23,11 @@ void doThanks(){
 	// ls.recv(0x255); // не забыть, что нужно считать состояние всех фар!! если сообщение не сохраненно, то его получить..
 	// ls.sendMessage();
 	#ifdef DEBUG 
+	delay(50);
 	blink(2);
+	showEcn(0xAB,0xCD,0xEF);
+	delay(50);
+	showEcn(0xAB,0xCD,0xEF);
 	#endif
 	delay(50);
 	log("== end doThanks ==");
