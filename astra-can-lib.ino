@@ -23,7 +23,13 @@ int processedMessagesCount = 0;
 bool flagLightsOff = 0;
 bool flagMove = 0;
 
+
 void setup(){
+
+    #ifdef DEBUG
+    flagMove = 1;
+    #endif
+
 	Serial2.begin(115200);
 	pinMode(PC13, OUTPUT);
 	blink(3);
@@ -34,30 +40,37 @@ void setup(){
 	ls.filter(0, 0, 0);
 	ls.set_irq_mode();
 	log("LS started with status "+ String(stat));
+	panelCheck();
+	delay(300);
 	showEcn(0x12,0x34,0x56);
-
+    delay(1000);
 }
 
 void loop(){
 	log("=====starting loop=====");
 	#ifdef DEBUG
-	delay(300);
+	log("Debug delay");
+	delay(1000);
 	#endif
 
 	if ((inMsg = ls.recv())!=NULL) {
 		processedMessagesCount++;
-		log("LS CAN message received. Count:" + String(processedMessagesCount));
+		log("LS CAN message received.");
 		// обработка входящего сообщения и запуск функций (переключение состояния) либо расстановка флагов?
-    log("--before triggers--");
-	checkLsTriggers();
-	log("--after triggers, before flags--");
-	checkFlags();
-	log("--after flags--");
-	ls.free();
-	log("--remove message from incoming box--");
+        log("--before triggers--");
+        checkLsTriggers();
+        log("--after triggers--");
+        ls.free();
+        log("--remove message from incoming box--");
 	} else {
 		emptyMessagesCount++;
-		log("No message in queue. Empty messages count: "+ String(emptyMessagesCount)); // будет гадить в лог!!
+		log("No message in queue.");
 	}
-	
+
+	log("--before flags--");
+	checkFlags();
+	log("--after flags--");
+
+	log("Received messages count:" + String(processedMessagesCount));
+	log("Empty    messages count: "+ String(emptyMessagesCount));
 }

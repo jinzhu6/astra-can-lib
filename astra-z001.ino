@@ -59,6 +59,8 @@ log("--- Start of flags check ---");
 	if (flagLightsOff and flagMove){
 		log("flagLightsOff and flagMove detected. Should make a signal. Or simulate handbrake is on.");
 		beep();
+		ls.sendMessage(0x370, 8, 0x02, 0x01, 0x00, 0x00, 0x00,0x00,0x00,0x00);//simulate handbrake
+
 	}
 log("--- end of flags check ---");
 }
