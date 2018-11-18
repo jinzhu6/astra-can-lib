@@ -23,6 +23,7 @@ void doThanks(){
 	// ls.recv(0x255); // не забыть, что нужно считать состояние всех фар!! если сообщение не сохраненно, то его получить..
 	// ls.sendMessage();
 	#ifdef DEBUG 
+  beep();
 	delay(50);
 	blink(2);
 	showEcn(0xAB,0xCD,0xEF);

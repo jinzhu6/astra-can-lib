@@ -12,8 +12,9 @@ class EmptyCan : public HardwareCAN {
 
 	EmptyCan(void):HardwareCAN(CAN1_BASE){
 		
-
 	}
+	
+	void sendMessage(long id, byte dlength, byte d0, byte d1, byte d2, byte d3, byte d4, byte d5, byte d6, byte d7);
 	
 };
 
